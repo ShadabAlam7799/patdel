@@ -46,7 +46,7 @@ if __name__ == '__main__':
         model_kwargs={'device': device},
         encode_kwargs=encode_kwargs
     )
-    dummy = bge_embeddings.embed_query("hello world, lets go")
+    dummy = bge_embeddings.embed_query("hello world, lets go") #model warmup
 
     webbrowser.open('http://127.0.0.1:5000/search')
     host = '0.0.0.0'
