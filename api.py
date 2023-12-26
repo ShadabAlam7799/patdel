@@ -3,13 +3,18 @@ import os
 import json
 from langchain.embeddings import HuggingFaceBgeEmbeddings
 import pinecone
+import webbrowser
 
 app = Flask(__name__)
 
 @app.route('/search', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        query = request.form['query']
+        content_type = request.headers.get('Content-Type')
+        if content_type == "application/json":
+            query = request.get_json()["query"]
+        if content_type == "application/x-www-form-urlencoded":
+            query = request.form['query']
         query_emb = bge_embeddings.embed_query(query)
 
         query_response = index.query(top_k=1, 
@@ -43,6 +48,7 @@ if __name__ == '__main__':
     )
     dummy = bge_embeddings.embed_query("hello world, lets go")
 
+    webbrowser.open('http://127.0.0.1:5000/search')
     host = '0.0.0.0'
     port = 5000
     app.run(debug=True, host=host, port=port)
