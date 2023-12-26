@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  web:
+    image: flask-app-image:latest
+    ports:
+      - "5000:5000"
+    deploy:
+      replicas: 3  # Horizontal scaling - adjust the number of replicas as needed
+      resources:
+        limits:
+          cpus: '0.5'  # Vertical scaling - adjust CPU limit as needed
+          memory: 512M # Vertical scaling - adjust memory limit as needed
+    networks:
+      - mynetwork
+    volumes:
+      - mydata:/app/data
+    # Add other configuration options as needed
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mydata:
