@@ -1,4 +1,4 @@
-Patent Search Engine
+Patent Search Engine (RAG Application)
 
 A Flask-based web application that enables semantic search through patent documents using vector embeddings and Pinecone vector database.
 
